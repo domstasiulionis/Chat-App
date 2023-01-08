@@ -21,7 +21,7 @@ const Chat = () => {
     socket.emit("join", { name, room });
 
     console.log(socket);
-  }, [searchParams, ENDPOINT]);
+  }, [ENDPOINT]);
 
   return (
     <div>
