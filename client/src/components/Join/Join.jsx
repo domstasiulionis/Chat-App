@@ -11,7 +11,7 @@ const Join = () => {
 
   return (
     <div className="join">
-      <div className="join-container-inner">
+      <form className="join-container-inner">
         <h1 className="join__heading">Join</h1>
         <div>
           <input
@@ -37,7 +37,7 @@ const Join = () => {
             <BsArrowRight className="join-btn__arrow" />
           </button>
         </Link>
-      </div>
+      </form>
     </div>
   );
 };
