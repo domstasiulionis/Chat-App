@@ -31,7 +31,7 @@ const Join = () => {
         </div>
         <Link
           onClick={(e) => (!name || !room ? e.preventDefault() : null)}
-          to={`/chat?name=${name}&${room}`}>
+          to={`/chat?name=${name}&room=${room}`}>
           <button className="join-btn" type="submit">
             Enter
             <BsArrowRight className="join-btn__arrow" />

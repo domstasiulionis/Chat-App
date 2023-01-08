@@ -1,16 +1,18 @@
 const express = require("express");
-const socketio = require("socket.io");
 const http = require("http");
-
-const PORT = 5000;
+const PORT = 3001;
 
 const router = require("./router");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
-io.on("connetion", (socket) => {
+io.on("connection", (socket) => {
   console.log("New connection");
 
   socket.on("disconnect", () => {
