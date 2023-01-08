@@ -1,18 +1,17 @@
 const express = require("express");
-const app = express();
 const http = require("http");
-const { Server } = require("socket.io");
-const server = http.createServer(app);
-
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
+const socketio = require("socket.io");
+const PORT = 3001;
 
 const router = require("./router");
-const PORT = 3001;
+
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 io.on("connection", (socket) => {
   console.log("New connection");
@@ -24,6 +23,10 @@ io.on("connection", (socket) => {
 
   socket.on("disconnected", () => {
     console.log("User has disconnected");
+  });
+
+  socket.on("send_message", (data) => {
+    console.log(data);
   });
 });
 
