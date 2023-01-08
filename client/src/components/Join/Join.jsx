@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { BsArrowRight } from "react-icons/bs";
+
 import "./Join.scss";
 
 const Join = () => {
@@ -8,7 +10,7 @@ const Join = () => {
   const [room, setRoom] = useState("");
 
   return (
-    <div className="join-container">
+    <div className="join">
       <div className="join-container-inner">
         <h1 className="join__heading">Join</h1>
         <div>
@@ -23,15 +25,16 @@ const Join = () => {
           <input
             placeholder="Room"
             type="text"
-            className="Join__input Join__input--room"
+            className="Join__input"
             onChange={(e) => setRoom(e.target.value)}
           />
         </div>
         <Link
           onClick={(e) => (!name || !room ? e.preventDefault() : null)}
           to={`/chat?name=${name}&${room}`}>
-          <button className="join__btn" type="submit">
-            Sign In
+          <button className="join-btn" type="submit">
+            Enter
+            <BsArrowRight className="join-btn__arrow" />
           </button>
         </Link>
       </div>
