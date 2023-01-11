@@ -20,12 +20,14 @@ This is a simple chat applicaiton that I had built to apply what I have recently
 - [x] Aesthetic responsive UI
 - [x] Powered by a hosted NodeJS/ExpressJS server
 
+![image](https://user-images.githubusercontent.com/44949034/211891862-c2821565-dd10-4d01-8696-29e9a7420843.png)
+
 ![image](https://user-images.githubusercontent.com/44949034/211890982-acf6d5a5-6687-4668-8f0c-109e13bba901.png)
 
 ## :credit_card: Credit
-Background for join screen: [Link](https://codepen.io/P1N2O/pen/pyBNzX)
-Background for chat screen: [Link](https://codepen.io/kootoopas/pen/kGPoaB)
-And the many tutorials and pieces of documentation that helped along the way!
+- Background for join screen: [Link](https://codepen.io/P1N2O/pen/pyBNzX)
+- Background for chat screen: [Link](https://codepen.io/kootoopas/pen/kGPoaB)
+- And the many tutorials and pieces of documentation that helped along the way!
 
 ## :computer: Author
 Project created by [@domstasiulionis](https://github.com/domstasiulionis)
