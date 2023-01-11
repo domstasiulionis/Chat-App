@@ -87,3 +87,12 @@ $bg-height: 50px;
     opacity: 1;
   }
 }
+
+@media (max-width: 470px) {
+  .bg {
+    -webkit-animation: none;
+    -moz-animation: none;
+    -o-animation: none;
+    animation: none;
+  }
+}
