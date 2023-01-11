@@ -14,7 +14,7 @@ This is a simple chat applicaiton that I had built to apply what I have recently
 * [React Icons](https://react-icons.github.io/react-icons/) - Icons
 
 ## :star: Features
-- [x] Real-time messageing between multiple users
+- [x] Real-time messaging between multiple users
 - [x] Users can choose their name and room
 - [x] Chat will automatically scroll to bottom if a new message has been sent
 - [x] Aesthetic responsive UI
