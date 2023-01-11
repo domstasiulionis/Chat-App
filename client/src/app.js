@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import Chat from "./components/Chat/Chat";
 import Join from "./components/Join/Join";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect(`https://chat-app-0fn5.onrender.com/`);
 
 function App() {
   const [name, setName] = useState("");
