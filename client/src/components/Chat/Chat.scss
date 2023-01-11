@@ -179,3 +179,46 @@ body {
     opacity: 1;
   }
 }
+
+@media (max-width: 910px) {
+  .chat {
+    &-box {
+      width: 600px;
+    }
+  }
+}
+@media (max-width: 710px) {
+  .chat {
+    &-box {
+      width: 500px;
+    }
+  }
+}
+@media (max-width: 565px) {
+  .chat {
+    &-box {
+      width: 400px;
+    }
+  }
+}
+@media (max-width: 470px) {
+  .chat {
+    &-box {
+      width: 350px;
+    }
+  }
+}
+@media (max-width: 390px) {
+  .chat {
+    &-box {
+      width: 300px;
+    }
+  }
+}
+@media (max-width: 330px) {
+  .chat {
+    &-box {
+      width: 270px;
+    }
+  }
+}
