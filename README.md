@@ -10,7 +10,7 @@ This is a simple chat applicaiton that I had built to apply what I have recently
 * [NodeJS](https://nodejs.org/en/) - Back-end
 * [ExpressJS](https://www.npmjs.com/package/express) - Back-end framework
 * [Socketio](https://socket.io/) - Web socket library 
-* [react-scroll-to-bottom](https://www.npmjs.com/package/react-scroll-to-bottom/) - React component for automatic scrolling to bottom
+* [React-scroll-to-bottom](https://www.npmjs.com/package/react-scroll-to-bottom/) - React component for automatic scrolling to bottom
 * [React Icons](https://react-icons.github.io/react-icons/) - Icons
 
 ## :star: Features
