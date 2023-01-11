@@ -7,7 +7,7 @@
   font-family: "Roboto", sans-serif;
 }
 
-@mixin animated-bg {
+@mixin bg() {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
@@ -18,18 +18,25 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  @include animated-bg();
+  @include bg();
 
-  &-container-inner {
+  &-inner {
+    position: relative;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     width: 700px;
     height: 400px;
     background-color: white;
     border-radius: 10px;
     gap: 25px;
+    animation: fadeIn 0.8s ease-in-out forwards;
+
+    &--expanded {
+      animation: expand 0.5s ease-in-out forwards;
+    }
   }
 
   &__heading {
@@ -47,8 +54,8 @@
 
   &-btn {
     position: relative;
-    width: 150px;
-    height: 40px;
+    width: 152px;
+    height: 45px;
     outline: none;
     border: none;
     color: white;
@@ -59,19 +66,36 @@
     letter-spacing: 2px;
     user-select: none;
     cursor: pointer;
-    @include animated-bg();
+    @include bg();
 
     &:hover {
       opacity: 0.8;
     }
 
-    &__arrow {
+    &--arrow {
       position: absolute;
-      top: 12px;
+      top: 15px;
       margin-left: 8px;
       font-size: 17px;
     }
   }
+}
+
+.fade-out {
+  animation: fade 0.5s ease-in-out forwards;
+}
+
+.fade-out:nth-child(1) {
+  animation-delay: 400ms;
+}
+.fade-out:nth-child(2) {
+  animation-delay: 300ms;
+}
+.fade-out:nth-child(3) {
+  animation-delay: 200ms;
+}
+.fade-out:nth-child(4) {
+  animation-delay: 100ms;
 }
 
 @keyframes gradient {
@@ -83,5 +107,41 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes expand {
+  0% {
+    width: 700px;
+    height: 400px;
+    opacity: 1;
+  }
+
+  100% {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0px;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

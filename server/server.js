@@ -1,37 +1,35 @@
 const express = require("express");
+const app = express();
 const http = require("http");
-const socketio = require("socket.io");
+const { Server } = require("socket.io");
+
+const server = http.createServer(app);
 const PORT = 3001;
 
-const router = require("./router");
-
-const app = express();
-const server = http.createServer(app);
-const io = socketio(server, {
+const io = new Server(server, {
   cors: {
     origin: "*",
+    methods: ["GET", "POST"],
   },
 });
 
 io.on("connection", (socket) => {
-  console.log("New connection");
+  console.log(`User Connected: ${socket.id}`);
 
-  socket.on("join", ({ room, name }) => {
-    socket.join(room);
-    console.log(`User with ID: ${socket.id} joined room: ${room}`);
+  socket.on("join", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
-  socket.on("disconnected", () => {
-    console.log("User has disconnected");
+  socket.on("message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
   });
 
-  socket.on("send_message", (data) => {
-    console.log(data);
+  socket.on("disconnect", () => {
+    console.log(`User ${socket.id} has disconnected`);
   });
 });
 
-app.use(router);
-
 server.listen(PORT, () => {
-  console.log(`Server running on port:  ${PORT}`);
+  console.log(`Server is running on port: ${PORT}`);
 });

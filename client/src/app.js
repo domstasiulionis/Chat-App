@@ -1,15 +1,42 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Join from "./components/Join/Join";
+import { useState } from "react";
+import io from "socket.io-client";
+
 import Chat from "./components/Chat/Chat";
+import Join from "./components/Join/Join";
+
+const socket = io.connect("http://localhost:3001");
 
 function App() {
+  const [name, setName] = useState("");
+  const [room, setRoom] = useState("");
+  const [showChat, setShowChat] = useState(false);
+  const [entered, setEntered] = useState(false);
+
+  const joinRoom = () => {
+    setEntered(true);
+    if (name !== "" && room !== "") {
+      setTimeout(() => {
+        socket.emit("join", room);
+        setShowChat(true);
+      }, 700);
+    }
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" exact element={<Join />} />
-        <Route path="/chat" element={<Chat />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      {!showChat ? (
+        <Join
+          setName={setName}
+          setRoom={setRoom}
+          room={room}
+          name={name}
+          joinRoom={joinRoom}
+          entered={entered}
+        />
+      ) : (
+        <Chat socket={socket} name={name} room={room} />
+      )}
+    </div>
   );
 }
 

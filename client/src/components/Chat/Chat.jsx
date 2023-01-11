@@ -1,60 +1,86 @@
-import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import io from "socket.io-client";
+import React, { useEffect, useState } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 import "./Chat.scss";
+import "./Bg.scss";
 
-let socket;
-
-const Chat = () => {
-  const [searchParams] = useSearchParams();
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
-  const [currentMessage, setCurrentMessage] = useState("");
+function Chat({ socket, name, room }) {
+  const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
-  const ENDPOINT = "localhost:3001";
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessageList((list) => [...list, data]);
+    });
+  }, [socket]);
 
   const sendMessage = async () => {
-    if (currentMessage !== "") {
+    if (message !== "") {
       const messageData = {
         room: room,
         author: name,
-        message: currentMessage,
+        message: message,
         time:
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
       };
 
-      await socket.emit("send_message", messageData);
+      await socket.emit("message", messageData);
       setMessageList((list) => [...list, messageData]);
-      setCurrentMessage("");
+      setMessage("");
     }
   };
 
-  useEffect(() => {
-    setName(searchParams.get("name"));
-    setRoom(searchParams.get("room"));
-
-    socket = io(ENDPOINT);
-    socket.emit("join", { room, name });
-
-    console.log(socket);
-  }, []);
-
   return (
-    <div>
-      <input
-        type="text"
-        onChange={(e) => {
-          setCurrentMessage(e.target.value);
-        }}
-      />
-
-      <button onClick={sendMessage}>Send</button>
+    <div className="chat">
+      <div className="bg-animation">
+        <div className="bg"></div>
+      </div>
+      <div className="chat-box">
+        <div className="chat-header">
+          <p>Live Chat</p>
+        </div>
+        <div className="chat-body">
+          <ScrollToBottom className="message">
+            {messageList.map((msg) => {
+              return (
+                <div
+                  className="message-container"
+                  id={name === msg.author ? "author" : "other"}>
+                  <div>
+                    <div className="message-content">
+                      <p>{msg.message}</p>
+                    </div>
+                    <div className="message-extra">
+                      <p id="time">{msg.time}</p>
+                      <p id="author">{msg.author}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </ScrollToBottom>
+        </div>
+        <div className="chat-send">
+          <input
+            type="text"
+            placeholder="Enter message..."
+            value={message}
+            onChange={(event) => {
+              setMessage(event.target.value);
+            }}
+            onKeyDown={(event) => {
+              event.key === "Enter" && sendMessage();
+            }}
+          />
+          <button className="chat-send__button" onClick={sendMessage}>
+            Send
+          </button>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default Chat;

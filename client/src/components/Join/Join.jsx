@@ -1,43 +1,49 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
-import { BsArrowRight } from "react-icons/bs";
+import React from "react";
 
 import "./Join.scss";
 
-const Join = () => {
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
+import { BsArrowRight } from "react-icons/bs";
 
+const Join = ({ setName, setRoom, joinRoom, entered, name, room }) => {
   return (
     <div className="join">
-      <form className="join-container-inner">
-        <h1 className="join__heading">Join</h1>
-        <div>
-          <input
-            placeholder="Name"
-            type="text"
-            className="Join__input"
-            onChange={(e) => setName(e.target.value)}
+      <div className={`join-inner ${entered ? "join-inner--expanded" : ""}`}>
+        <h3 className={`join__heading ${entered ? "fade-out" : ""}`}>Join</h3>
+        <input
+          type="text"
+          placeholder="Name"
+          className={`${entered ? "fade-out" : ""}`}
+          onKeyDown={(event) => {
+            if ((event.key === "Enter") & (room !== "") & (name !== "")) {
+              joinRoom();
+            }
+          }}
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Room"
+          className={`${entered ? "fade-out" : ""}`}
+          onKeyDown={(event) => {
+            if ((event.key === "Enter") & (room !== "") & (name !== "")) {
+              joinRoom();
+            }
+          }}
+          onChange={(event) => {
+            setRoom(event.target.value);
+          }}
+        />
+        <button
+          className={`join-btn ${entered ? "fade-out" : ""}`}
+          onClick={!name || !room ? "" : joinRoom}>
+          Enter
+          <BsArrowRight
+            className={`join-btn--arrow ${entered ? "fade-out" : ""}`}
           />
-        </div>
-        <div>
-          <input
-            placeholder="Room"
-            type="text"
-            className="Join__input"
-            onChange={(e) => setRoom(e.target.value)}
-          />
-        </div>
-        <Link
-          onClick={(e) => (!name || !room ? e.preventDefault() : null)}
-          to={`/chat?name=${name}&room=${room}`}>
-          <button className="join-btn" type="submit">
-            Enter
-            <BsArrowRight className="join-btn__arrow" />
-          </button>
-        </Link>
-      </form>
+        </button>
+      </div>
     </div>
   );
 };
